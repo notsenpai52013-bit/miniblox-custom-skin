@@ -1,4 +1,4 @@
-const CUSTOM_SKIN_URL = "https://YOUR_SKIN_LINK.png";
+const CUSTOM_SKIN_URL = "https://t.novaskin.me/f86fda253940b102add31469dcc0167a3183d850388856b3111aed490fa7e14a";
 let enabled = false;
 
 // Listen to popup toggle
