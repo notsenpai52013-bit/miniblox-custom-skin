@@ -1,21 +1,30 @@
+const CUSTOM_SKIN_URL = "https://YOUR_SKIN_LINK.png";
 let enabled = false;
-let skinURL = 'https://t.novaskin.me/f86fda253940b102add31469dcc0167a3183d850388856b3111aed490fa7e14a'; // Replace with your PNG URL
 
-function applySkin() {
-    if (window.player && window.player.setSkin) {
-        if (enabled) {
-            window.player.setSkin(skinURL);
-        } else {
-            window.player.resetSkin();
-        }
-    } else {
-        setTimeout(applySkin, 1000);
-    }
-}
-
+// Listen to popup toggle
 chrome.runtime.onMessage.addListener((msg) => {
-    if (msg.action === 'toggleSkin') {
+    if (msg.action === "toggleSkin") {
         enabled = !enabled;
-        applySkin();
+        console.log("[SkinExtension] Enabled:", enabled);
     }
 });
+
+// Hook Image loading
+const OriginalImage = window.Image;
+
+window.Image = function (...args) {
+    const img = new OriginalImage(...args);
+
+    Object.defineProperty(img, "src", {
+        set(value) {
+            // Detect YOUR OWN skin (Miniblox usually uses player UUID)
+            if (enabled && typeof value === "string" && value.includes("skin")) {
+                console.log("[SkinExtension] Replacing skin:", value);
+                return img.setAttribute("src", CUSTOM_SKIN_URL);
+            }
+            return img.setAttribute("src", value);
+        }
+    });
+
+    return img;
+};
