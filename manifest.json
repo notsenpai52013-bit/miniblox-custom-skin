@@ -5,8 +5,7 @@
   "description": "Apply a custom skin that only you see",
   "permissions": ["storage", "scripting"],
   "host_permissions": [
-    "https://miniblox.io/*",
-    "https://www.crazygames.com/*"
+    "https://miniblox.online/*",
   ],
   "icons": {
     "128": "icon.png"
