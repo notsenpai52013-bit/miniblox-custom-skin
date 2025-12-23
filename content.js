@@ -1,44 +1,50 @@
-function injectInto(win) {
-  const script = win.document.createElement('script');
-  script.textContent = `
-    (() => {
-      const CUSTOM_SKIN_URL = 'https://t.novaskin.me/f86fda253940b102add31469dcc0167a3183d850388856b3111aed490fa7e14a';
-      let USED = false;
+(function () {
+  chrome.storage.local.get('skinUrl', data => {
+    if (!data.skinUrl) return;
 
-      console.log('[Miniblox EXT] Injected');
+    const SKIN_URL = data.skinUrl;
+    let USED = false;
 
-      const desc = Object.getOwnPropertyDescriptor(
-        HTMLImageElement.prototype,
-        'src'
-      );
+    function inject(win) {
+      const s = win.document.createElement('script');
+      s.textContent = `
+        (() => {
+          let USED = false;
+          const SKIN = '${SKIN_URL}';
+          const desc = Object.getOwnPropertyDescriptor(
+            HTMLImageElement.prototype,
+            'src'
+          );
 
-      Object.defineProperty(HTMLImageElement.prototype, 'src', {
-        set(value) {
-          if (
-            !USED &&
-            typeof value === 'string' &&
-            /skin|player|character|avatar/i.test(value)
-          ) {
-            USED = true;
-            console.log('[Miniblox EXT] ONLY ME skin replaced');
-            return desc.set.call(this, CUSTOM_SKIN_URL);
-          }
-          return desc.set.call(this, value);
-        },
-        get() {
-          return desc.get.call(this);
-        }
-      });
-    })();
-  `;
-  win.document.documentElement.appendChild(script);
-  script.remove();
-}
+          Object.defineProperty(HTMLImageElement.prototype, 'src', {
+            set(v) {
+              if (
+                !USED &&
+                typeof v === 'string' &&
+                /skin|player|character|avatar/i.test(v)
+              ) {
+                USED = true;
+                console.log('[Miniblox EXT] Skin applied');
+                return desc.set.call(this, SKIN);
+              }
+              return desc.set.call(this, v);
+            },
+            get() {
+              return desc.get.call(this);
+            }
+          });
+        })();
+      `;
+      win.document.documentElement.appendChild(s);
+      s.remove();
+    }
 
-const interval = setInterval(() => {
-  const iframe = document.querySelector('iframe');
-  if (iframe && iframe.contentWindow && iframe.contentDocument) {
-    clearInterval(interval);
-    injectInto(iframe.contentWindow);
-  }
-}, 500);
+    const wait = setInterval(() => {
+      const iframe = document.querySelector('iframe');
+      if (iframe && iframe.contentWindow) {
+        clearInterval(wait);
+        inject(iframe.contentWindow);
+      }
+    }, 500);
+  });
+})();
