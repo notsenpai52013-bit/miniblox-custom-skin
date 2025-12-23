@@ -2,11 +2,18 @@
   "manifest_version": 3,
   "name": "Miniblox Custom Skin (Only Me)",
   "version": "1.0",
-  "description": "Shows your custom skin only to you in Miniblox",
+  "description": "Apply a custom skin that only you see",
+  "permissions": ["storage", "scripting"],
   "host_permissions": [
     "https://miniblox.io/*",
     "https://www.crazygames.com/*"
   ],
+  "icons": {
+    "128": "icons/icon.png"
+  },
+  "action": {
+    "default_popup": "popup.html"
+  },
   "content_scripts": [
     {
       "matches": [
@@ -14,7 +21,7 @@
         "https://www.crazygames.com/*"
       ],
       "js": ["content.js"],
-      "run_at": "document_start"
+      "run_at": "document_idle"
     }
   ]
 }
