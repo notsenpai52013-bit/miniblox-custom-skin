@@ -1,13 +1,13 @@
 {
   "manifest_version": 3,
-  "name": "Miniblox Skin Changer",
+  "name": "Miniblox Custom Skin (Only Me)",
   "version": "1.0",
-  "permissions": [
-    "declarativeNetRequest",
-    "declarativeNetRequestWithHostAccess",
-    "storage"
+  "description": "Client-side custom skin for Miniblox (only you see it)",
+  "permissions": ["storage", "scripting"],
+  "host_permissions": [
+    "https://miniblox.online/*",
+    "https://*.crazygames.com/*"
   ],
-  "host_permissions": ["*://*/*"],
   "background": {
     "service_worker": "background.js"
   },
@@ -17,6 +17,7 @@
       "128": "icon.png"
     }
   }
+}
 }.js"],
       "run_at": "document_idle"
     }
