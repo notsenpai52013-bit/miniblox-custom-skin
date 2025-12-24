@@ -1,10 +1,9 @@
-document.getElementById('apply').onclick = () => {
-  const url = document.getElementById('skinUrl').value.trim();
-  if (!url) return alert('Paste a skin URL first');
+ddocument.getElementById("save").onclick = async () => {
+  const url = document.getElementById("url").value.trim();
+  if (!url) return;
 
-  chrome.storage.local.set({ skinUrl: url }, () => {
-    chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
-      chrome.tabs.reload(tabs[0].id);
-    });
-  });
+  await chrome.storage.local.set({ skinUrl: url });
+
+  const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  chrome.tabs.reload(tab.id);
 };
