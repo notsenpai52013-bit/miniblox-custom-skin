@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Miniblox Custom Skin (Only Me)",
   "version": "1.0",
-  "description": "Client-side custom skin for Miniblox (only you see it)",
+  "description": "Client-side custom skin for Miniblox",
   "permissions": ["storage", "scripting"],
   "host_permissions": [
     "https://miniblox.online/*",
@@ -17,9 +17,4 @@
       "128": "icon.png"
     }
   }
-}
-}.js"],
-      "run_at": "document_idle"
-    }
-  ]
 }
