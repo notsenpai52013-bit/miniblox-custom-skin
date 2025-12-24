@@ -1,16 +1,34 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="UTF-8">
+  <title>Miniblox Skin</title>
   <style>
-    body { font-family: Arial; padding: 10px; width: 250px; }
-    input { width: 100%; margin-bottom: 8px; }
-    button { width: 100%; }
+    body {
+      font-family: Arial;
+      background: #111;
+      color: white;
+      width: 220px;
+      padding: 10px;
+    }
+    input {
+      width: 100%;
+      margin-bottom: 8px;
+    }
+    button {
+      width: 100%;
+      padding: 6px;
+      background: #00ff88;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
-  <h3>Miniblox Skin</h3>
-  <input id="skinUrl" placeholder="Paste your skin URL here" />
-  <button id="apply">Apply & Reload</button>
+  <h3>Custom Skin URL</h3>
+  <input id="url" placeholder="Paste skin URL">
+  <button id="save">Apply & Reload</button>
 
   <script src="popup.js"></script>
 </body>
